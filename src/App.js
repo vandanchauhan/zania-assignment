@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Card from "./components/Card";
 
-
 const App = () => {
   const [cards, setCards] = useState([
     {
@@ -42,6 +41,29 @@ const App = () => {
     },
   ]);
 
+  const handleDragStart = (e, id) => {
+    e.dataTransfer.setData("id", id);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, id) => {
+    e.preventDefault();
+    const draggedId = parseInt(e.dataTransfer.getData("id"));
+    const draggedCard = cards.find((card) => card.id === draggedId);
+    const droppedCard = cards.find((card) => card.id === id);
+    const draggedIndex = cards.indexOf(draggedCard);
+    const droppedIndex = cards.indexOf(droppedCard);
+
+    const newCards = [...cards];
+    newCards.splice(draggedIndex, 1);
+    newCards.splice(droppedIndex, 0, draggedCard);
+
+    setCards(newCards);
+  };
+
   const renderRows = () => {
     const rows = [];
     for (let i = 0; i < cards.length; i += 3) {
@@ -49,7 +71,15 @@ const App = () => {
       rows.push(
         <div key={i} style={{ display: "flex", width: "100%" }}>
           {row.map((card, index) => (
-            <Card imageUrl={card.imageUrl} title={card.title} />
+            <Card
+              key={card.id}
+              id={card.id}
+              imageUrl={card.imageUrl}
+              title={card.title}
+              handleDragStart={handleDragStart}
+              handleDragOver={handleDragOver}
+              handleDrop={handleDrop}
+            />
           ))}
         </div>
       );
