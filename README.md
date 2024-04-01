@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Some key points
+- I have added 2 dummy cards data to localStorage.
+- Mock api will return 4 more more cards which would be merged with the data from local storage and update the UI.
+- I have added 2 sec delay for setting the response from api.
+- Each image can be opened in an overlay when clicked
+
 ## Available Scripts
 
 In the project directory, you can run:
