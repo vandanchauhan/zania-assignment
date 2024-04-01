@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Card from "./components/Card";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+  const [cards, setCards] = useState([
+    {
+      id: 1,
+      imageUrl:
+        "https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
+      title: "Title 1",
+    },
+    {
+      id: 2,
+      imageUrl:
+        "https://fastly.picsum.photos/id/1/5000/3333.jpg?hmac=Asv2DU3rA_5D1xSe22xZK47WEAN0wjWeFOhzd13ujW4",
+      title: "Title 2",
+    },
+    {
+      id: 3,
+      imageUrl:
+        "https://fastly.picsum.photos/id/2/5000/3333.jpg?hmac=_KDkqQVttXw_nM-RyJfLImIbafFrqLsuGO5YuHqD-qQ",
+      title: "Title 3",
+    },
+    {
+      id: 4,
+      imageUrl:
+        "https://fastly.picsum.photos/id/4/5000/3333.jpg?hmac=ghf06FdmgiD0-G4c9DdNM8RnBIN7BO0-ZGEw47khHP4",
+      title: "Title 4",
+    },
+    {
+      id: 5,
+      imageUrl:
+        "https://fastly.picsum.photos/id/5/5000/3334.jpg?hmac=R_jZuyT1jbcfBlpKFxAb0Q3lof9oJ0kREaxsYV3MgCc",
+      title: "Title 5",
+    },
+    {
+      id: 6,
+      imageUrl:
+        "https://fastly.picsum.photos/id/6/5000/3333.jpg?hmac=pq9FRpg2xkAQ7J9JTrBtyFcp9-qvlu8ycAi7bUHlL7I",
+      title: "Title 6",
+    },
+  ]);
+
+  const renderRows = () => {
+    const rows = [];
+    for (let i = 0; i < cards.length; i += 3) {
+      const row = cards.slice(i, i + 3);
+      rows.push(
+        <div key={i} style={{ display: "flex", width: "100%" }}>
+          {row.map((card, index) => (
+            <Card imageUrl={card.imageUrl} title={card.title} />
+          ))}
+        </div>
+      );
+    }
+    return rows;
+  };
+
+  return <div>{renderRows()}</div>;
+};
 
 export default App;
